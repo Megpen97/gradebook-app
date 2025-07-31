@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Student extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -21,7 +25,6 @@ class Student extends Model
 
     public function enrollments(): HasMany
     {
-        return $this->hasMany(Enrollment::class, 'user_id', 'user_id');
+        return $this->hasMany(Enrollments::class);
     }
-    
 }

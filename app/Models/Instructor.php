@@ -2,17 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Instructor extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
         'first_name',
         'last_name',
         'email',
         'phone',
-        'address', 
+        'address',
         'city',
         'state',
         'zip',
@@ -20,14 +25,13 @@ class Instructor extends Model
         'hire_date'
     ];
 
-    public function courses(): HasMany
-    {
-        return $this->hasMany(Courses::class, 'instructor_id', 'instructor_id');
-    }
-
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'user_id');
+        return $this->belongsTo(User::class);
     }
 
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Courses::class);
+    }
 }
